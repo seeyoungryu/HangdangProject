@@ -118,4 +118,17 @@ public class JwtUtil {
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
+
+
+
+
+
+
+    ///////////////////
+    public Long getUserIdFromToken(String token) {
+        Claims claims = getUserInfoFromToken(token);
+        return Long.valueOf(claims.getSubject()); // getSubject()는 사용자 ID를 반환합니다.
+    }
+
 }
+
