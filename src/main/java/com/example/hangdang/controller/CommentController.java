@@ -39,25 +39,5 @@ public class CommentController {
         return new ResponseEntity<>("댓글이 삭제되었습니다.", HttpStatus.OK);
     }
 
-    @PostMapping("/goods/{goodsId}/like")
-    public ResponseEntity<String> likeGoods(@PathVariable Long goodsId, @AuthenticationPrincipal UserDetailsImpl userDetails)
-    {
-        try{
 
-        } catch (Exception e){
-            return new ResponseEntity<>("좋아요를 누르는 데에 실패하였습니다.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("좋아요를 등록하였습니다.", HttpStatus.OK);
-    }
-
-    @DeleteMapping("/goods/{goodsId}/dislike")
-    public ResponseEntity<String> undolikeGoods(@PathVariable Long goodsId, @AuthenticationPrincipal UserDetailsImpl userDetails)
-    {
-        try{
-
-        } catch (Exception e){
-            return new ResponseEntity<>("좋아요를 취소하는 데에 실패하였습니다.", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("좋아요를 취소하였습니다.", HttpStatus.OK);
-    }
 }
