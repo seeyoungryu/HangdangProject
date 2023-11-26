@@ -17,8 +17,9 @@ public class ImageController {
 
     private final ImageService imageService;
     @PostMapping("/v1/upload")
-    public String uploadImage(@RequestPart(value = "file")MultipartFile multipartFile) throws IllegalAccessException
+    public ResponseEntity<String> uploadImage(@RequestPart(value = "file")MultipartFile multipartFile) throws IllegalAccessException
     {
-        return imageService.uploadImage(multipartFile);
+        imageService.uploadImage(multipartFile);
+        return new ResponseEntity<>("이미지 등록이 완료되었습니다.",HttpStatus.OK);
     }
 }
