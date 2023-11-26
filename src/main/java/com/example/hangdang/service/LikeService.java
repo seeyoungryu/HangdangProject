@@ -14,6 +14,7 @@ public class LikeService {
 
     public void like(Long userId, Long goodsId) {
         // 좋아요 로직 구현
+
     }
 
 

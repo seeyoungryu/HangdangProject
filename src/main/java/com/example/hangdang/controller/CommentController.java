@@ -39,5 +39,4 @@ public class CommentController {
         return new ResponseEntity<>("댓글이 삭제되었습니다.", HttpStatus.OK);
     }
 
-
 }
