@@ -32,13 +32,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
 
+        /*
+        @Todo: 각 api 에러 처리 후  request uri 를 검증하여 return 하는 로직 제거 후에도 동작하는지 확인 필요.
+          */
 
         String path = req.getRequestURI();
-        if (path.equals("/") ||
-                path.startsWith("/api/signup/check-name")
-                || path.startsWith("/api/signup")
-                || path.startsWith("/api/login")
-                || path.startsWith("swagger-ui.html")) {
+        String method = req.getMethod();
+        if (isPublicEndpoint(path, method) || path.startsWith("swagger-ui.html")) {
             filterChain.doFilter(req, res);
             return;
         }
@@ -84,6 +84,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(req, res);
 
+    }
+
+    private boolean isPublicEndpoint(String path, String httpMethod) {
+        if (httpMethod.equalsIgnoreCase("GET")) {
+            return path.equals("/")
+                    || path.startsWith("/api/signup/check-name")
+                    || path.startsWith("/api/goods");
+        } else if (httpMethod.equalsIgnoreCase("POST") || httpMethod.equalsIgnoreCase("PUT")) {
+            return path.startsWith("/api/signup")
+                    || path.startsWith("/api/login");
+        }
+        return false;
     }
 
     // 인증 처리
