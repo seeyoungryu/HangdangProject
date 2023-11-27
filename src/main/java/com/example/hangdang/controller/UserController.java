@@ -22,10 +22,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login-page")
-    public String loginPage() {
-        return "login";
-    }
+//    @GetMapping("/login-page")
+//    public String loginPage() {
+//        return "login";
+//    }
 
     @GetMapping("/signup")
     public String signupPage() {
