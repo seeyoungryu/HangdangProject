@@ -118,9 +118,9 @@ public class SecurityConfig {
          "/swagger-ui.html")
          .permitAll()
          .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-         .requestMatchers("/api/login", "/api/signup").permitAll() // 로그인 및 회원가입 경로 인증 제외
-         //                        .requestMatchers("/api/users", "/api/users/**“).permitAll() // ‘/api/rollingpapers/’로 시작하는 요청 모두 접근 허가
+         .requestMatchers(HttpMethod.POST,"/api/login", "/api/signup").permitAll() // 로그인 및 회원가입 경로 인증 제외
          .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll() // GET 요청에 대해 허용
+            .requestMatchers(HttpMethod.GET,"/error").permitAll()
          //.requestMatchers(HttpMethod.PATCH, “/api/courses/{courseId}/update”).authenticated() // PATCH 요청에 대해 인증 필요
          .requestMatchers("/", "/favicon.ico").permitAll()
          .anyRequest().authenticated() // 그 외 모든 요청 인증처리
