@@ -39,7 +39,7 @@ public class UserController {
         return "redirect:/api/login-page";
     }
 
-    @GetMapping("/signup/checkName")
+    @GetMapping("/signup/check-name")
     public String checkUsername(@RequestBody UsernameRequestDto requestDto) {
         return userService.checkUsername(requestDto);
     }
