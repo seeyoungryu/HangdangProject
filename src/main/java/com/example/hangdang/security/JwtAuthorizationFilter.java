@@ -35,7 +35,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         String path = req.getRequestURI();
         if (path.equals("/") ||
-                path.startsWith("/api/users")
+                path.startsWith("/api/signup/check-name")
                 || path.startsWith("/api/signup")
                 || path.startsWith("/api/login")
                 || path.startsWith("swagger-ui.html")) {
