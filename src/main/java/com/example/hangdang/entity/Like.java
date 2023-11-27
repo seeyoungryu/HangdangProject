@@ -23,7 +23,7 @@ public class Like {
     @ManyToOne
     @JoinColumn(name = "goods_id")
     private Goods goods;
-  
+
     // 생성자 추가
     public Like(Goods goods, UserEntity user) {
         this.goods = goods;
