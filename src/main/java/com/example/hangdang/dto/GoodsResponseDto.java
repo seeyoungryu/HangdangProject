@@ -9,6 +9,7 @@ public class GoodsResponseDto {
     private String goodsTitle;
     private Integer price;
     private String imageURL;
+    private String nickname;
     private String wishLocation;
     private Integer likeCount;
     private boolean haveStock;
@@ -19,6 +20,7 @@ public class GoodsResponseDto {
         this.goodsTitle = goods.getGoodsTitle();
         this.price = goods.getPrice();
         this.imageURL = goods.getImageURL();
+        this.nickname = goods.getUser().getNickname();
         this.wishLocation = goods.getWishLocation();
         this.likeCount = goods.getLikeCount();
         this.haveStock = goods.isHaveStock();
