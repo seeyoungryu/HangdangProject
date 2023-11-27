@@ -22,7 +22,8 @@ public enum ErrorCode {
 
     DUPLICATE_USERNAME(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
-    DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다.");
+    DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임입니다."),
+    FILE_SIZE_EXCEED(HttpStatus.CONFLICT,"정해진 파일 크기를 초과했습니다.");
 
 
     private final HttpStatus httpStatus;

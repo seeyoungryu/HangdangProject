@@ -54,14 +54,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtUtil.createToken(username, nickname, role);
         jwtUtil.addJwtToCookie(token, response);
 
-//        jwtUtil.addJwtToHeader(JwtUtil.AUTHORIZATION_HEADER, token, response);
-//        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
-
         // JSON으로 변환하여 응답
         ObjectMapper objectMapper = new ObjectMapper();
-        //String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다."));
         String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
-        //String jsonData = objectMapper.writeValueAsString(ApiResponse.successData(nickname));
 
         response.setContentType("application/json");//응답 형식 지정
         response.setCharacterEncoding("UTF-8");
