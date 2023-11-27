@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/signup/check-name")
-    public String checkUsername(@RequestBody UsernameRequestDto requestDto) {
+    public String checkUsername(UsernameRequestDto requestDto) {
         return userService.checkUsername(requestDto);
     }
 
