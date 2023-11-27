@@ -120,8 +120,14 @@ public class JwtUtil {
     }
 
 
-    public Long getUserIdFromToken(String token) {
-        Claims claims = getUserInfoFromToken(token);
-        return Long.valueOf(claims.getSubject()); // getSubject()는 사용자 ID를 반환합니다.
-    }
+
+
+
+
+//    ///////////////////
+//    public Long getUserIdFromToken(String token) {
+//        Claims claims = getUserInfoFromToken(token);
+//        return Long.valueOf(claims.getSubject()); // getSubject()는 사용자 ID를 반환합니다.
+//    }
+
 }
