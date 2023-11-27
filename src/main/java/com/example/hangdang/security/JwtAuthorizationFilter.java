@@ -33,8 +33,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
 
 
-        String path = req.getRequestURL().toString();
-
+        String path = req.getRequestURI();
         if (path.equals("/") ||
                 path.startsWith("/api/users")
                 || path.startsWith("/api/signup")
