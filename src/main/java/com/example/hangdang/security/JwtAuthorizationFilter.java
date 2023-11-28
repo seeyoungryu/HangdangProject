@@ -1,8 +1,8 @@
 package com.example.hangdang.security;
 
-import com.example.hangdang.global.dto.ApiResponse;
 import com.example.hangdang.jwt.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.hangdang.global.dto.ApiResponse;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,20 +32,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
 
-
-        String path = req.getRequestURI();
-        if (path.equals("/") ||
-                path.startsWith("/api/signup/check-name")
-                || path.startsWith("/api/signup")
-                || path.startsWith("/api/login")
-                || path.startsWith("swagger-ui.html")) {
-            filterChain.doFilter(req, res);
-            return;
-        }
-
         String tokenValue = jwtUtil.getJwtFromHeader(req);
 
-        if (tokenValue == null || tokenValue.isEmpty()) {
+        if(tokenValue == null || tokenValue.isEmpty()) {
             try {
                 System.out.println("토큰이 비어있는 에러 발생");
                 filterChain.doFilter(req, res);
