@@ -97,7 +97,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             String token = jwtUtil.createToken(username, nickname, role);
 
             // JWT 헤더로 추가
-            jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
+            jwtUtil.addJwtToHeader("Authorization", token, response);
 
             // 쿠키 사용을 위한 헤더 설정 추가
             response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
