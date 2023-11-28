@@ -100,34 +100,22 @@ public class SecurityConfig {
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
         http.authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
-                                // 한줄로 허용하기
-                                .requestMatchers("/swagger-resources/**",
-                                        "/webjars/**",
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html")
-                                .permitAll()
-                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                                .requestMatchers(HttpMethod.POST, "/api/login", "/api/signup").permitAll() // 로그인 및 회원가입 경로 인증 제외
-                                .requestMatchers("/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/signup/check-name").permitAll() // GET 요청에 대해 허용
-                                .requestMatchers(HttpMethod.GET, "/api/goods/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-                                .requestMatchers("/", "/favicon.ico").permitAll()
-                                .anyRequest().authenticated() // 그 외 모든 요청 인증처리
-
-//
-//                        .requestMatchers(HttpMethod.POST, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-//                        .requestMatchers(HttpMethod.PUT, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-//                        .requestMatchers(HttpMethod.DELETE, "/api/goods/**").hasRole("USER").anyRequest().authenticated()
-//
-//
-//
-//        );
-
+                authorizeHttpRequests
+                        // 한줄로 허용하기
+                        .requestMatchers("/swagger-resources/**",
+                                "/webjars/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html")
+                        .permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
+                        .requestMatchers(HttpMethod.POST, "/api/login", "/api/signup").permitAll() // 로그인 및 회원가입 경로 인증 제외
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/signup/check-name").permitAll() // GET 요청에 대해 허용
+                        .requestMatchers(HttpMethod.GET, "/api/goods/**").permitAll()
+                        //.requestMatchers(HttpMethod.PATCH, “/api/courses/{courseId}/update”).authenticated() // PATCH 요청에 대해 인증 필요
+                        .requestMatchers("/", "/favicon.ico").permitAll()
+                        .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
         // 필터 관리
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
