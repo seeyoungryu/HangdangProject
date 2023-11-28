@@ -63,24 +63,67 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //    }
 
 
+    //    *********** 토큰 발급 실패 예외처리 추가한 뒤 주석처리 한 부분  *********
+//    @Override
+//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
+//        String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
+//        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
+//        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
+//
+//        String token = jwtUtil.createToken(username, nickname, role);
+//
+//        // JWT 헤더로 추가
+//        jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
+//
+//        // JSON으로 변환하여 응답
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
+//
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        response.getWriter().write(jsonResponse);
+//    }
+    //    *********** 토큰 발급 실패 예외처리 추가한 뒤 주석처리 한 부분  *********
+
+
+    //+ 쿠키 사용을 위한 헤더 설정 추가함
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-        String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
-        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
+        try {
+            String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
+            String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
+            UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
-        String token = jwtUtil.createToken(username, nickname, role);
+            String token = jwtUtil.createToken(username, nickname, role);
 
-        // JWT 헤더로 추가
-        jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
+            // JWT 헤더로 추가
+            jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
 
-        // JSON으로 변환하여 응답
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
+            // 쿠키 사용을 위한 헤더 설정 추가
+            response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonResponse);
+
+            // JSON으로 변환하여 응답
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonResponse);
+        } catch (Exception ex) {
+            // 에러 메시지 작성
+            String errorMessage = "Failed to issue token: " + ex.getMessage();
+
+            // JSON으로 변환하여 응답
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(ApiResponse.error("로그인 실패"));
+
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonResponse);
+        }
     }
 
 
