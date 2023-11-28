@@ -101,6 +101,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             // 쿠키 사용을 위한 헤더 설정 추가
             response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
+            response.setHeader("Access-Control-Expose-Headers", "Authorization");
             response.setHeader("Access-Control-Allow-Credentials", "true");
 
 
