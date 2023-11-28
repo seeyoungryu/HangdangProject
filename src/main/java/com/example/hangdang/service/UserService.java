@@ -6,11 +6,8 @@ import com.example.hangdang.dto.UsernameRequestDto;
 import com.example.hangdang.entity.UserEntity;
 import com.example.hangdang.entity.UserRoleEnum;
 import com.example.hangdang.repository.UserRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,26 +58,7 @@ public class UserService {
         return new UserInfoResponseDto(user);
     }
 
-//    public String checkUsername(UsernameRequestDto requestDto) {
-//        List<UserEntity> userList = userRepository.findAll();
-//        boolean isDuplicate = false;
-//
-//        for (UserEntity user : userList) {
-//            if (user.getUsername().equals(requestDto.getUsername())) {
-//                isDuplicate = true;
-//                break;
-//            }
-//        }
-//
-//        if (isDuplicate) {
-//            return "중복된 닉네임입니다.";
-//        } else
-//            return "사용가능한 닉네임입니다.";
-//
-//    }
-
-
-    public ResponseEntity<String> checkUsername(UsernameRequestDto requestDto) {
+    public String checkUsername(UsernameRequestDto requestDto) {
         List<UserEntity> userList = userRepository.findAll();
         boolean isDuplicate = false;
 
@@ -92,12 +70,8 @@ public class UserService {
         }
 
         if (isDuplicate) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "중복된 닉네임입니다."
-            );
-        } else {
-            return ResponseEntity.ok("사용 가능한 닉네임입니다.");
-        }
+            return "중복된 닉네임입니다.";
+        } else
+            return "사용가능한 닉네임입니다.";
     }
-
 }
