@@ -1,5 +1,6 @@
 package com.example.hangdang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,10 +19,12 @@ public class Like {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "goods_id")
+    @JsonManagedReference
     private Goods goods;
 
     // 생성자 추가
