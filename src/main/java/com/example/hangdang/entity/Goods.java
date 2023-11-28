@@ -1,6 +1,8 @@
 package com.example.hangdang.entity;
 
 import com.example.hangdang.dto.GoodsRequestDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,12 +36,11 @@ public class Goods {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
     private UserEntity user;
 
     @OneToMany
     @JoinColumn(name = "goods_id")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Comment> commentList = new ArrayList<>();
 
     public Goods(String goodsTitle, String wishLocation, Integer price, boolean haveStock, String content)
