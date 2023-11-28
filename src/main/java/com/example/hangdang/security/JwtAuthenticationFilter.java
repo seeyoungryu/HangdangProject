@@ -5,6 +5,7 @@ import com.example.hangdang.entity.UserRoleEnum;
 import com.example.hangdang.global.dto.ApiResponse;
 import com.example.hangdang.jwt.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Api;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,48 +45,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
-//    @Override//로그인 성공시 JWT 토큰 생성
-//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
-//        String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-//        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
-//        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
-//
-//        String token = jwtUtil.createToken(username, nickname, role);
-//        jwtUtil.addJwtToCookie(token, response);
-//
-//        // JSON으로 변환하여 응답
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
-//
-//        response.setContentType("application/json");//응답 형식 지정
-//        response.setCharacterEncoding("UTF-8");
-//        response.getWriter().write(jsonResponse);
-//    }
-
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
+    @Override//로그인 성공시 JWT 토큰 생성
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
         String token = jwtUtil.createToken(username, nickname, role);
-
-        // JWT 헤더로 추가
-        jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
+        jwtUtil.addJwtToCookie(token, response);
 
         // JSON으로 변환하여 응답
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
 
-        response.setContentType("application/json");
+        response.setContentType("application/json");//응답 형식 지정
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
     }
 
-
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException{
         // JSON으로 변환하여 응답
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResponse = objectMapper.writeValueAsString(ApiResponse.error("로그인 실패"));
