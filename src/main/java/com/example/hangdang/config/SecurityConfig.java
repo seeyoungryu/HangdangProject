@@ -59,6 +59,36 @@ public class SecurityConfig {
     }
 
 
+    /*
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable).cors(withDefaults());
+
+        http.sessionManagement((sessionManagement) ->
+                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+        http.authorizeHttpRequests((authorizeHttpRequests) ->
+                authorizeHttpRequests
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
+                        .requestMatchers(new AntPathRequestMatcher("/")).permitAll() // 메인 페이지 요청 허가
+                        .requestMatchers(new AntPathRequestMatcher("/api/users/**")).permitAll() // '/api/users/'로 시작하는 요청 모두 접근 허가
+                        .requestMatchers(new AntPathRequestMatcher("GET")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("POST    ")).permitAll()// GET 요청 허가
+                        .requestMatchers(new AntPathRequestMatcher("PUT")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("DELETE")).permitAll()
+                        .anyRequest().authenticated() // 그 외 모든 요청 인증처리
+        );
+
+
+
+        // 필터 관리
+        http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }*/
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // CSRF 설정
@@ -93,6 +123,26 @@ public class SecurityConfig {
         return http.build();
     }
 
+
+    /*
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+
+            configuration.setAllowedOrigins(Arrays.asList(
+                    "http://localhost:3000", // 로컬 서버
+                    "http://52.79.234.77" // IP 주소
+            ));
+            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+            configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin"));
+            configuration.setExposedHeaders(Arrays.asList("Authorization"));
+            configuration.setMaxAge(1800L);
+            //configuration.setAllowCredentials(true);
+
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", configuration);
+            return source;
+        }*/
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -106,3 +156,14 @@ public class SecurityConfig {
         return source;
     }
 }
+
+
+//    @Bean
+//    public SecurityFilterChain otherSecurityFilterChain(HttpSecurity http) throws Exception
+//    {
+//        http
+//                .csrf((csrf) -> csrf.disable());
+//
+//        return http.build();
+//
+//    }
