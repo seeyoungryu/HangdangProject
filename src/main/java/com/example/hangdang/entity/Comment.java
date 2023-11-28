@@ -19,12 +19,10 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "goods_id")
-    @JsonManagedReference
     private Goods goods;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
     private UserEntity user;
 
     public Comment(Goods goods, CommentRequestDto requestDto, UserEntity user)
