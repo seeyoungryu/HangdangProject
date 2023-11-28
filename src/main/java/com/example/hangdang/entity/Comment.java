@@ -1,6 +1,7 @@
 package com.example.hangdang.entity;
 
 import com.example.hangdang.dto.CommentRequestDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,12 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "goods_id")
+    @JsonManagedReference
     private Goods goods;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private UserEntity user;
 
     public Comment(Goods goods, CommentRequestDto requestDto, UserEntity user)
