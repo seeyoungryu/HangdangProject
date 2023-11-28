@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
+                .exposedHeaders("Authorization", "Another-Header", "Yet-Another-Header", "Other-Custom-Header", "Content-Encoding", "Kuma-Revision")
                 .allowCredentials(true);
     }
 }
