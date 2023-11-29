@@ -44,49 +44,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
-//    @Override//로그인 성공시 JWT 토큰 생성
-//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
-//        String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-//        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
-//        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
-//
-//        String token = jwtUtil.createToken(username, nickname, role);
-//        jwtUtil.addJwtToCookie(token, response);
-//
-//        // JSON으로 변환하여 응답
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
-//
-//        response.setContentType("application/json");//응답 형식 지정
-//        response.setCharacterEncoding("UTF-8");
-//        response.getWriter().write(jsonResponse);
-//    }
-
-
-    //    *********** 토큰 발급 실패 예외처리 추가한 뒤 주석처리 한 부분  *********
-//    @Override
-//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-//        String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-//        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
-//        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
-//
-//        String token = jwtUtil.createToken(username, nickname, role);
-//
-//        // JWT 헤더로 추가
-//        jwtUtil.addJwtToHeader("Authorization", "Bearer " + token, response);
-//
-//        // JSON으로 변환하여 응답
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonResponse = objectMapper.writeValueAsString(ApiResponse.successMessage(nickname + "님 환영합니다.", nickname));
-//
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("UTF-8");
-//        response.getWriter().write(jsonResponse);
-//    }
-    //    *********** 토큰 발급 실패 예외처리 추가한 뒤 주석처리 한 부분  *********
-
-
-    //+ 쿠키 사용을 위한 헤더 설정 추가함
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         try {

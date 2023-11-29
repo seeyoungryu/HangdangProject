@@ -51,14 +51,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-//    public UserInfoResponseDto userInfo(Long userId, UserEntity user) {
-//        UserEntity user = userRepository.findById(userId).orElseThrow(
-//                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당하는 유저가 없습니다.")
-//        );
-//
-//        return new UserInfoResponseDto(user);
-//    }
-
 
     public UserInfoResponseDto userInfo(Long userId) {
         UserEntity foundUser = userRepository.findById(userId).orElseThrow(
@@ -79,7 +71,6 @@ public class UserService {
             return ResponseEntity.ok("사용가능한 username 입니다.");
         }
     }
-
 }
 
 
