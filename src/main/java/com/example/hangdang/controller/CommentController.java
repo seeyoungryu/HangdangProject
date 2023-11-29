@@ -17,11 +17,10 @@ public class CommentController {
 
     @PostMapping("/goods/{goodsId}/comment")
     public ResponseEntity<String> registerComment(@PathVariable Long goodsId, @RequestBody CommentRequestDto commentRequestdto,
-                                                  @AuthenticationPrincipal UserDetailsImpl userDetails)
-    {
-        try{
+                                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
             commentService.registerComment(goodsId, commentRequestdto, userDetails.getUser());
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("댓글을 등록하는 데에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("댓글이 등록되었습니다.", HttpStatus.OK);
@@ -29,11 +28,10 @@ public class CommentController {
 
     @DeleteMapping("/goods/{goodsId}/comment/{commentsId}")
     public ResponseEntity<String> deleteComment(@PathVariable Long goodsId, @PathVariable Long commentsId,
-                                              @AuthenticationPrincipal UserDetailsImpl userDetails)
-    {
-        try{
+                                                @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
             commentService.deleteComment(goodsId, commentsId, userDetails.getUser());
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("댓글을 삭제하는 데에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("댓글이 삭제되었습니다.", HttpStatus.OK);
