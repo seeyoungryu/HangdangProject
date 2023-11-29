@@ -56,9 +56,13 @@ public class UserEntity {
         return nickname;
     }
 
-    public String getPhoneNumber()  { return phoneNumber; }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public String getAddress() { return address; }
+    public String getAddress() {
+        return address;
+    }
 
     public UserRoleEnum getRole() {
         return role;
