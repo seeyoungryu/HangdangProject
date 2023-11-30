@@ -24,7 +24,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @EnableWebSecurity
@@ -124,7 +123,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("*")); // 모든 출처 허용
         configuration.setAllowedMethods(List.of("*")); // 모든 메소드 허용
         configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
-        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setExposedHeaders(List.of("Accept", "Authorization", "Cache-Control", "Content-Type", "Content-Length", "Cookie", "Set-Cookie", "User-Agent"));
         configuration.setAllowCredentials(true);
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
