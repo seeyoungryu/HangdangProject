@@ -4,6 +4,14 @@
 
 ### (기간 : 11/24 - 11/30)
 
+notion link
+
+[https://www.notion.so/2-SA-1-2460a18d65b2424ea781e6114d072d44](https://www.notion.so/8d672218c4514cff941bee0eb8973176)
+
+----------------------------------------------------------------
+
+
+
 <img width="1282" alt="스크린샷 2024-01-17 오후 7 23 19" src="https://github.com/seeyoungryu/cloneCoding_HangDang/assets/140057709/4a255326-c9dd-457b-869e-cbb966db0e58">
 
 | 이름 | 주특기 | 깃허브 | Velog |
